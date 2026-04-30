@@ -302,6 +302,12 @@
       text-align: center;
     }
     #contact .section-sub { margin: 0 auto 36px; }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
     .contact-link {
       display: inline-block;
       font-size: 15px;
@@ -311,6 +317,10 @@
       transition: border-color .2s;
     }
     .contact-link:hover { border-color: var(--accent); }
+    .contact-address {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
 
     /* ── Footer ───────────────────────────────────────────────────── */
     footer {
@@ -431,7 +441,10 @@
         Interested in working with us or want to learn more about our products?
         We&rsquo;d love to hear from you.
       </p>
-      <a href="mailto:hello@ashvathalabs.com" class="contact-link">hello@ashvathalabs.com</a>
+      <div class="contact-details">
+        <a href="mailto:rathore.ravi@outlook.com" class="contact-link">rathore.ravi@outlook.com</a>
+        <p class="contact-address">📍 Jagatpura, Jaipur, India</p>
+      </div>
     </div>
   </section>
 
