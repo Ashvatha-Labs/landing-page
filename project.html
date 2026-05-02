@@ -172,6 +172,10 @@
   // Strip boilerplate sections (Getting Started, Installation, clone, deployment etc.)
   function cleanReadme(text) {
     return text
+      // remove HTML table blocks and inline HTML tags
+      .replace(/<table[\s\S]*?<\/table>/gi, '')
+      .replace(/<[^>]+>/g, '')
+      // cut off at boilerplate sections
       .replace(/^#{1,3} .*(getting started|installation|setup|prerequisites|how to (run|use|install)|clone|running locally|deployment|contributing|license).*/gim, '\x00STOP')
       .split('\x00STOP')[0]
       .trim();
