@@ -170,6 +170,14 @@
     },
   };
 
+  // Strip boilerplate sections (Getting Started, Installation, clone, deployment etc.)
+  function cleanReadme(text) {
+    return text
+      .replace(/^#{1,3} .*(getting started|installation|setup|prerequisites|how to (run|use|install)|clone|running locally|deployment|contributing|license).*/gim, '\x00STOP')
+      .split('\x00STOP')[0]
+      .trim();
+  }
+
   // Minimal markdown → HTML (handles headings, bold, code, lists, links, images, hr)
   function md(text) {
     return text
@@ -233,7 +241,7 @@
       const res = await fetch(proj.readme);
       if (!res.ok) throw new Error();
       const text = await res.text();
-      document.getElementById('readme-body').innerHTML = md(text);
+      document.getElementById('readme-body').innerHTML = md(cleanReadme(text));
     } catch {
       document.getElementById('readme-body').textContent = 'Could not load README.';
     }
