@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project — Ashvatha Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #fff; color: #111827; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff4ff;
+      --border: #e4e7f0;
+      --muted: #6b7280;
+      --surface: #f7f8fc;
+      --max-w: 860px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+    .nav-logo span { color: var(--accent); }
+    .back-link { font-size: 14px; font-weight: 500; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .back-link:hover { color: var(--accent); }
+
+    main { max-width: var(--max-w); margin: 0 auto; padding: 48px 24px 96px; }
+
+    /* Loading / error states */
+    #state { text-align: center; padding: 80px 0; color: var(--muted); font-size: 15px; }
+    .spinner {
+      width: 32px; height: 32px; border: 3px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin .7s linear infinite; margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Header */
+    .proj-header { margin-bottom: 40px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .tag {
+      font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .tag-type { color: var(--accent); background: var(--accent-light); }
+    .tag-collab { color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; }
+    h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 16px; }
+    .proj-desc { font-size: 17px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+    .tech-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-tag {
+      font-size: 12px; font-weight: 500; padding: 4px 12px;
+      border-radius: 100px; background: var(--surface);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+
+    /* Screenshots */
+    .screenshots { margin: 40px 0; }
+    .screenshots h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+    .screenshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; }
+    .screenshot-grid img {
+      width: 100%; border-radius: 10px; border: 1px solid var(--border);
+      box-shadow: var(--shadow); transition: transform .2s;
+    }
+    .screenshot-grid img:hover { transform: scale(1.02); }
+
+    /* README */
+    .readme { margin-top: 40px; }
+    .readme h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+    .readme-body {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px;
+      font-size: 15px; color: #374151; line-height: 1.75;
+    }
+    /* Rendered markdown styles */
+    .readme-body h1, .readme-body h2, .readme-body h3 {
+      color: #111827; font-weight: 600; margin: 24px 0 10px; line-height: 1.3;
+    }
+    .readme-body h1 { font-size: 22px; } .readme-body h2 { font-size: 18px; } .readme-body h3 { font-size: 16px; }
+    .readme-body p { margin-bottom: 14px; }
+    .readme-body ul, .readme-body ol { padding-left: 24px; margin-bottom: 14px; }
+    .readme-body li { margin-bottom: 6px; }
+    .readme-body code {
+      font-family: 'Menlo', 'Consolas', monospace; font-size: 13px;
+      background: #e5e7eb; padding: 2px 6px; border-radius: 4px;
+    }
+    .readme-body pre { background: #1f2937; color: #e5e7eb; padding: 20px; border-radius: 8px; overflow-x: auto; margin-bottom: 14px; }
+    .readme-body pre code { background: none; padding: 0; color: inherit; }
+    .readme-body a { color: var(--accent); text-decoration: underline; }
+    .readme-body img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
+    .readme-body strong { font-weight: 600; color: #111827; }
+    .readme-body blockquote { border-left: 3px solid var(--border); padding-left: 16px; color: var(--muted); margin-bottom: 14px; }
+    .readme-body hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+    @media (max-width: 600px) {
+      .screenshot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Asvathaa<span>Labs</span></a>
+    <a href="index.html#projects" class="back-link">← Back to Work</a>
+  </div>
+</nav>
+
+<main>
+  <div id="state"><div class="spinner"></div>Loading project…</div>
+  <div id="content" style="display:none">
+    <div class="proj-header">
+      <div class="proj-tags" id="tags"></div>
+      <h1 id="title"></h1>
+      <p class="proj-desc" id="desc"></p>
+      <div class="tech-row" id="tech"></div>
+    </div>
+    <div class="screenshots" id="screenshots-section">
+      <h2>Screenshots</h2>
+      <div class="screenshot-grid" id="screenshot-grid"></div>
+    </div>
+    <div class="readme">
+      <h2>About this project</h2>
+      <div class="readme-body" id="readme-body"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const PROJECTS = {
+    'smart-waste': {
+      title: 'Smart Waste Management',
+      desc: 'A real-time waste monitoring platform built in collaboration with La Trobe University and a local council. Tracks fill levels of public bins across the city, enabling optimised collection routes and smarter resource allocation.',
+      tags: [{ label: 'IoT · Real-time', cls: 'tag-type' }, { label: '✓ In collaboration with La Trobe University', cls: 'tag-collab' }],
+      tech: ['Angular', 'Node.js', 'Socket.io', 'Express', 'Real-time Analytics'],
+      readme: 'https://raw.githubusercontent.com/ravioli158/smart-waste-managment/master/README.md',
+      screenshots: [
+        'https://raw.githubusercontent.com/ravioli158/smart-waste-managment/master/screenshots/pr1.png',
+        'https://raw.githubusercontent.com/ravioli158/smart-waste-managment/master/screenshots/pr2.png',
+        'https://raw.githubusercontent.com/ravioli158/smart-waste-managment/master/screenshots/pr3.png',
+        'https://raw.githubusercontent.com/ravioli158/smart-waste-managment/master/screenshots/pr4.png',
+      ],
+    },
+    'alay': {
+      title: 'Alay — Custom Street Maps',
+      desc: 'A platform for creating and ordering beautifully styled street maps of Indian cities, designed for home and workspace decor. Pick a city, choose a style, select a frame, and get a print-ready product.',
+      tags: [{ label: 'Maps · E-commerce', cls: 'tag-type' }],
+      tech: ['Next.js', 'React Leaflet', 'HERE Maps API', 'Firebase', 'Redux'],
+      readme: 'https://raw.githubusercontent.com/rpsr15/alay/main/README.md',
+      screenshots: [
+        'https://raw.githubusercontent.com/rpsr15/alay/main/screenshots/screenshot1.png',
+        'https://raw.githubusercontent.com/rpsr15/alay/main/screenshots/screenshot2.png',
+        'https://raw.githubusercontent.com/rpsr15/alay/main/screenshots/screenshot3.png',
+        'https://raw.githubusercontent.com/rpsr15/alay/main/screenshots/screenshot4.png',
+      ],
+    },
+  };
+
+  // Minimal markdown → HTML (handles headings, bold, code, lists, links, images, hr)
+  function md(text) {
+    return text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      // fenced code blocks
+      .replace(/```[\w]*\n([\s\S]*?)```/g, (_, c) => `<pre><code>${c.trim()}</code></pre>`)
+      // headings
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+      // hr
+      .replace(/^---$/gm, '<hr>')
+      // bold
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      // inline code
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // images (before links)
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />')
+      // links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      // unordered list items
+      .replace(/^\s*[-*] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+      // blockquote
+      .replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>')
+      // paragraphs (lines not already wrapped)
+      .replace(/^(?!<[a-z]|\s*$)(.+)$/gm, '<p>$1</p>');
+  }
+
+  async function load() {
+    const id = new URLSearchParams(location.search).get('id');
+    const proj = PROJECTS[id];
+    const stateEl = document.getElementById('state');
+
+    if (!proj) {
+      stateEl.textContent = 'Project not found.';
+      return;
+    }
+
+    document.title = proj.title + ' — Ashvatha Labs';
+
+    // Render static content immediately
+    document.getElementById('title').textContent = proj.title;
+    document.getElementById('desc').textContent = proj.desc;
+    document.getElementById('tags').innerHTML = proj.tags.map(t => `<span class="tag ${t.cls}">${t.label}</span>`).join('');
+    document.getElementById('tech').innerHTML = proj.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+    // Screenshots
+    const grid = document.getElementById('screenshot-grid');
+    proj.screenshots.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = proj.title + ' screenshot';
+      img.loading = 'lazy';
+      img.onerror = () => img.remove();
+      grid.appendChild(img);
+    });
+
+    // Fetch README
+    try {
+      const res = await fetch(proj.readme);
+      if (!res.ok) throw new Error();
+      const text = await res.text();
+      document.getElementById('readme-body').innerHTML = md(text);
+    } catch {
+      document.getElementById('readme-body').textContent = 'Could not load README.';
+    }
+
+    stateEl.style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  }
+
+  load();
+</script>
+</body>
+</html>

@@ -321,11 +321,25 @@
     footer {
       background: var(--bg-surface);
       border-top: 1px solid var(--border);
-      padding: 28px 24px;
-      text-align: center;
+      padding: 48px 24px 32px;
     }
-    footer p { font-size: 13px; color: var(--text-muted); }
-    footer span { color: var(--accent); }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    }
+    .footer-brand .logo { font-size: 17px; font-weight: 700; letter-spacing: -.02em; color: var(--text-primary); margin-bottom: 8px; }
+    .footer-brand .logo span { color: var(--accent); }
+    .footer-brand p { font-size: 13px; color: var(--text-muted); line-height: 1.65; max-width: 320px; }
+    .footer-legal { font-size: 13px; color: var(--text-muted); line-height: 2; }
+    .footer-legal strong { color: var(--text-primary); font-weight: 600; }
+    .footer-bottom {
+      max-width: var(--max-w); margin: 32px auto 0;
+      padding-top: 20px; border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-muted);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .footer-bottom span { color: var(--accent); }
+    @media (max-width: 600px) { .footer-inner { grid-template-columns: 1fr; } }
 
     @media (max-width: 640px) {
       section { padding: 72px 0; }
@@ -339,7 +353,7 @@
   <!-- NAV -->
   <nav>
     <div class="nav-inner">
-      <div class="nav-logo">Ashvatha<span>Labs</span></div>
+      <div class="nav-logo">Asvathaa<span>Labs</span></div>
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#projects">Work</a></li>
@@ -373,13 +387,18 @@
       <span class="section-label">What We Do</span>
       <h2 class="section-title">End-to-end software development</h2>
       <p class="section-sub">
-        From early-stage product design to full-scale deployment, we handle the technical side so you can focus on your business.
+        An MSME-recognised startup based in Rajasthan, delivering secure IT infrastructure and Generative AI solutions. We handle the full stack — from architecture to deployment.
       </p>
       <div class="cards">
         <div class="card">
           <div class="card-icon">🌐</div>
-          <h3>Web Applications</h3>
-          <p>Full-stack web development using modern frameworks. We build fast, scalable, and maintainable products — not just prototypes.</p>
+          <h3>Web Application Development & Hosting</h3>
+          <p>Full-stack web development and managed hosting. Fast, secure, and maintainable — built to production standards, not just prototypes.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3>AI & Machine Learning Development</h3>
+          <p>Custom AI solutions using LLMs, RAG pipelines, and FastAPI backends. From intelligent chatbots to document-aware assistants and automated decision systems.</p>
         </div>
         <div class="card">
           <div class="card-icon">📱</div>
@@ -387,14 +406,14 @@
           <p>Cross-platform mobile apps built with React Native. One codebase, native performance on both iOS and Android.</p>
         </div>
         <div class="card">
-          <div class="card-icon">🤖</div>
-          <h3>AI Integration</h3>
-          <p>We embed AI where it genuinely adds value — intelligent automation, data pipelines, and real-time decision systems.</p>
-        </div>
-        <div class="card">
           <div class="card-icon">🔗</div>
           <h3>API & Integrations</h3>
           <p>Connect your tools, platforms, and data sources with clean, well-documented APIs and integration layers.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧠</div>
+          <h3>Agentic AI Systems</h3>
+          <p>End-to-end design and delivery of complex multi-agent systems for enterprise operations and educational institutions — from workflow automation to intelligent tutoring and adaptive learning platforms.</p>
         </div>
       </div>
     </div>
@@ -435,8 +454,8 @@
               <span class="tech-tag">Express</span>
               <span class="tech-tag">Real-time Analytics</span>
             </div>
-            <a href="https://github.com/ravioli158/smart-waste-managment" target="_blank" rel="noopener" class="project-link">
-              View on GitHub →
+            <a href="project.html?id=smart-waste" class="project-link">
+              View Project →
             </a>
           </div>
         </div>
@@ -463,8 +482,8 @@
               <span class="tech-tag">Firebase</span>
               <span class="tech-tag">Redux</span>
             </div>
-            <a href="https://github.com/rpsr15/alay" target="_blank" rel="noopener" class="project-link">
-              View on GitHub →
+            <a href="project.html?id=alay" class="project-link">
+              View Project →
             </a>
           </div>
         </div>
@@ -509,7 +528,7 @@
         We're selective about the work we take on, which means the projects we do commit to get our full attention. If you have something worth building, let's talk.
       </p>
       <div class="contact-details">
-        <a href="mailto:rathore.ravi@outlook.com" class="contact-link">rathore.ravi@outlook.com</a>
+        <a href="mailto:ravi@ashvathalabs.in" class="contact-link">ravi@ashvathalabs.in</a>
         <p class="contact-address">📍 Jaipur, India</p>
       </div>
     </div>
@@ -517,7 +536,22 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 <span>Ashvatha Labs</span>. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Asvathaa<span>Labs</span></div>
+        <p>MSME-recognised software development agency based in Rajasthan, delivering secure IT infrastructure and Generative AI solutions for enterprises and educational institutions.</p>
+      </div>
+      <div class="footer-legal">
+        <div><strong>MSME / Udyam</strong> &nbsp;UDYAM-RJ-17-0589003</div>
+        <!-- <div><strong>GSTIN</strong> &nbsp;<!-- add GSTIN here --></div> -->
+        <div><strong>Address</strong> &nbsp;M1169, Vrinda Gardens, Jagatpura,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jaipur, Rajasthan 302017</div>
+        <div><strong>Email</strong> &nbsp;<a href="mailto:ravi@ashvathalabs.in" style="color:var(--accent)">ravi@ashvathalabs.in</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Asvathaa Labs. All rights reserved.</span>
+      <span>Registered Startup · Rajasthan, India</span>
+    </div>
   </footer>
 
 </body>
